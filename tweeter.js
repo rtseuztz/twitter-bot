@@ -7,6 +7,7 @@ import readline from 'readline';
 import puppeteer from 'puppeteer';
 import fs from 'fs';
 import Twitter from 'twitter';
+console.log(response)
 const rl = readline.createInterface({
     input: process.stdin,
     output: process.stdout

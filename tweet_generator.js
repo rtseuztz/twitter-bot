@@ -8,8 +8,6 @@ const getResponse = async () => {
     });
     const openai = new OpenAIApi(configuration);
     try {
-        console.log(process.env.TWITTER_USERNAME.split(" "))
-        console.log(process.env.TEST)
         const response = await openai.createCompletion({
             model: "text-davinci-003",
             prompt: "imagine you are a twitter user. you are named boolman6 and are slightly edgy sometimes. you have a lot of viral tweets that get requests for ads in the replies. this user, which is you, is a 22 year old that has a lot of different opinions which people react to. you do not use hashtags and you type in all lowercase, yet sometimes you capitalize words. you do not use the # character. generate another tweet that goes viral. an example of a tweet that went viral is: \"didnt know a forehead could be so big until i saw charles barkely's.\" they need to be very random and not follow the example. generate it without quotes.",
@@ -19,9 +17,11 @@ const getResponse = async () => {
             frequency_penalty: 0.5,
             presence_penalty: 0.0,
         });
+        console.log("a1337")
         return response
     }
     catch (err) {
+        console.log("b1337")
         console.log(err)
         return null
     }
