@@ -49,9 +49,9 @@ jobs:
       uses: actions/setup-node@v3
       with:
         node-version: ${{ matrix.node_version }}
-    - name: Print name
+    - name: create env file
       env: 
-        OPENAI_API_KEY: ${{ secrets.u4s81lcxhvTrm3y8WZb6T3BlbkFJvLhnMWfQj7rO815Tioou }}
+        OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
         TWITTER_USERNAME: ${{ secrets.TWITTER_USERNAME }}
         TWITTER_API_KEY: ${{ secrets.TWITTER_API_KEY }}
         TWITTER_API_KEY_SECRET: ${{ secrets.TWITTER_API_KEY_SECRET }}
@@ -60,10 +60,17 @@ jobs:
         TWITTER_ACCESS_TOKEN_SECRET: ${{ secrets.TWITTER_ACCESS_TOKEN_SECRET }}
         TEST: Mona
       run: |
-        echo ${{secrets.TWITTER_USERNAME }} | sed 's/./& /g'
+        touch .env
+        echo OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }} >> .env
+        TWITTER_USERNAME: ${{ secrets.TWITTER_USERNAME }} >> .env
+        TWITTER_API_KEY: ${{ secrets.TWITTER_API_KEY }} >> .env
+        TWITTER_API_KEY_SECRET: ${{ secrets.TWITTER_API_KEY_SECRET }} >> .env
+        TWITTER_BEARER_TOKEN: ${{ secrets.TWITTER_BEARER_TOKEN }} >> .env
+        TWITTER_ACCESS_TOKEN: ${{ secrets.TWITTER_ACCESS_TOKEN }} >> .env
+        TWITTER_ACCESS_TOKEN_SECRET: ${{ secrets.TWITTER_ACCESS_TOKEN_SECRET }} >> .env
     - name: npm install, build and test
       env: 
-        OPENAI_API_KEY: ${{ secrets.u4s81lcxhvTrm3y8WZb6T3BlbkFJvLhnMWfQj7rO815Tioou }}
+        OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
         TWITTER_USERNAME: ${{ secrets.TWITTER_USERNAME }}
         TWITTER_API_KEY: ${{ secrets.TWITTER_API_KEY }}
         TWITTER_API_KEY_SECRET: ${{ secrets.TWITTER_API_KEY_SECRET }}
