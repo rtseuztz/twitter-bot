@@ -2,37 +2,59 @@
 # For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-nodejs
 
 name: Node.js CI
-
 on:
   push:
     branches: [ "master" ]
   pull_request:
     branches: [ "master" ]
-
 jobs:
-  build:
+#   build:
+#     environment: twitter
+#     runs-on: ubuntu-latest
 
-    runs-on: ubuntu-latest
+#     strategy:
+#       matrix:
+#         node-version: [14.x, 16.x, 18.x]
+#         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
+#     steps:
+#     - uses: actions/checkout@v3
+#     - name: Use Node.js ${{ matrix.node-version }}
+#       uses: actions/setup-node@v3
+#       with:
+#         node-version: ${{ matrix.node-version }}
+#         cache: 'npm'
+#     - name: Print name
+#       env: 
+#         TWITTER_USERNAME: ${{ secrets.TWITTER_USERNAME }}
+#       run: echo "username is $TWITTER_USERNAME" 
+#     - name: Set env
+#       run: echo "GITHUB_SHA_SHORT=$(echo $GITHUB_SHA | cut -c 1-6)" >> $GITHUB_ENV
+#     - name: Test
+#       run: echo $GITHUB_SHA_SHORT
+#     - run: npm ci
+#     - run: npm start
+  run:
+    environment: twitter
+    name: Test on node ${{ matrix.node_version }} and ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        node-version: [14.x, 16.x, 18.x]
-        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+        node_version: [14.x, 16.x, 18.x]
+        os: [ubuntu-latest]
 
     steps:
     - uses: actions/checkout@v3
-    - name: Use Node.js ${{ matrix.node-version }}
+    - name: Use Node.js ${{ matrix.node_version }}
       uses: actions/setup-node@v3
       with:
-        node-version: ${{ matrix.node-version }}
-        cache: 'npm'
+        node-version: ${{ matrix.node_version }}
     - name: Print name
-      env: 
-        TWITTER_USERNAME: ${{ secrets.TWITTER_USERNAME }}
+#           env: 
+#             TWITTER_USERNAME: ${{ secrets.TWITTER_USERNAME }}
       run: echo "username is $TWITTER_USERNAME" 
-    - name: Set env
-      run: echo "GITHUB_SHA_SHORT=$(echo $GITHUB_SHA | cut -c 1-6)" >> $GITHUB_ENV
-    - name: Test
-      run: echo $GITHUB_SHA_SHORT
-    - run: npm ci
-    - run: npm start
+    - name: npm install, build and test
+      run: |
+        npm install
+        npm run build --if-present
+        npm start
