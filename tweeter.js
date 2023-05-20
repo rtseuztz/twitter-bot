@@ -208,7 +208,6 @@ const tweet = async () => {
         const page = await browser.newPage();
         await page.goto(authorizeURL.href, { waitUntil: 'networkidle2' });
         //save a picture of this page
-        console.log(await page.content());
 
         await page.focus("input[id='username_or_email']");
         await page.keyboard.type(process.env.TWITTER_USERNAME);
@@ -219,8 +218,8 @@ const tweet = async () => {
         await page.click("input[id='allow']");
 
         //wait for a second with puppeteer
-        console.log(await page.content());
         const element = await page.$("code");
+        console.log(await page.content());
         const value = await page.evaluate(el => el.textContent, element)
         browser.disconnect();
 
