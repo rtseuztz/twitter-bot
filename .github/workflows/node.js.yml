@@ -30,5 +30,9 @@ jobs:
       env: 
         TWITTER_USERNAME: ${{ secrets.TWITTER_USERNAME }}
       run: echo "username is $TWITTER_USERNAME" 
+    - name: Set env
+      run: echo "GITHUB_SHA_SHORT=$(echo $GITHUB_SHA | cut -c 1-6)" >> $GITHUB_ENV
+    - name: Test
+      run: echo $GITHUB_SHA_SHORT
     - run: npm ci
     - run: npm start
