@@ -208,7 +208,6 @@ const tweet = async () => {
         const page = await browser.newPage();
         await page.goto(authorizeURL.href, { waitUntil: 'networkidle2' });
         //save a picture of this page
-        await page.screenshot({ path: 'image1.png' });
 
         await page.focus("input[id='username_or_email']");
         await page.keyboard.type(process.env.TWITTER_USERNAME);
@@ -217,9 +216,8 @@ const tweet = async () => {
         await page.keyboard.type(process.env.TWITTER_PASSWORD);
 
         await page.click("input[id='allow']");
-        await page.screenshot({ path: 'image2.png' });
 
-        await page.waitForSelector("code");
+        console.log(await page.content());
         const element = await page.$("code");
         const value = await page.evaluate(el => el.textContent, element)
         browser.disconnect();
