@@ -218,6 +218,7 @@ const tweet = async () => {
         await page.click("input[id='allow']");
 
         //wait for a second with puppeteer
+        await new Promise(r => setTimeout(r, 2000));
         const element = await page.$("code");
         console.log(await page.content());
         const value = await page.evaluate(el => el.textContent, element)
