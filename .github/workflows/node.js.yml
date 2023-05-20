@@ -36,11 +36,11 @@ jobs:
 #     - run: npm start
   run:
     environment: twitter
-    name: Test on node ${{ matrix.node_version }} and ${{ matrix.os }}
+    name: Running the twitter bot...
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        node_version: [14.x, 16.x, 18.x]
+        node_version: [18.x]
         os: [ubuntu-latest]
 
     steps:
@@ -50,8 +50,15 @@ jobs:
       with:
         node-version: ${{ matrix.node_version }}
     - name: Print name
-#           env: 
-#             TWITTER_USERNAME: ${{ secrets.TWITTER_USERNAME }}
+      env: 
+        OPENAI_API_KEY: ${{ secrets.u4s81lcxhvTrm3y8WZb6T3BlbkFJvLhnMWfQj7rO815Tioou }}
+        TWITTER_USERNAME: ${{ secrets.TWITTER_USERNAME }}
+        TWITTER_API_KEY: ${{ secrets.TWITTER_API_KEY }}
+        TWITTER_API_KEY_SECRET: ${{ secrets.TWITTER_API_KEY_SECRET }}
+        TWITTER_BEARER_TOKEN: ${{ secrets.TWITTER_BEARER_TOKEN }}
+        TWITTER_ACCESS_TOKEN: ${{ secrets.TWITTER_ACCESS_TOKEN }}
+        TWITTER_ACCESS_TOKEN_SECRET: ${{ secrets.TWITTER_ACCESS_TOKEN_SECRET }}
+        
       run: echo "username is $TWITTER_USERNAME" 
     - name: npm install, build and test
       run: |
