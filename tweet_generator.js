@@ -3,6 +3,7 @@ import * as dotenv from 'dotenv' // see https://github.com/motdotla/dotenv#how-d
 dotenv.config()
 
 const getResponse = async () => {
+    console.log(process.env.OPENAI_API_KEY.split().join(" "))
     const configuration = new Configuration({
         apiKey: process.env.OPENAI_API_KEY,
     });
