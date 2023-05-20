@@ -204,8 +204,11 @@ const tweet = async () => {
         authorizeURL.searchParams.append('oauth_token', oAuthRequestToken.oauth_token);
 
         //puppeteer, go to the link and click the button to get to the pin page
+
         const browser = await puppeteer.launch({ headless: "new" });
-        const page = await browser.newPage();
+        const context = await browser.createIncognitoBrowserContext();
+
+        const page = await context.newPage() // await browser.newPage();
         await page.goto(authorizeURL.href, { waitUntil: 'networkidle2' });
         //save a picture of this page
 
