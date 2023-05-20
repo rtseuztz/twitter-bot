@@ -3,7 +3,6 @@ import * as dotenv from 'dotenv' // see https://github.com/motdotla/dotenv#how-d
 dotenv.config()
 
 const getResponse = async () => {
-    console.log(process.env.OPENAI_API_KEY.split().join(" "))
     const configuration = new Configuration({
         apiKey: process.env.OPENAI_API_KEY,
     });
@@ -16,13 +15,11 @@ const getResponse = async () => {
             max_tokens: 60,
             top_p: 1.0,
             frequency_penalty: 0.5,
-            presence_penalty: 0.0,
+            presence_penalty: 1.0,
         });
-        console.log("a1337")
         return response
     }
     catch (err) {
-        console.log("b1337")
         console.log(err)
         return null
     }
