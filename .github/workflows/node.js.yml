@@ -28,6 +28,7 @@ jobs:
         touch .env
         echo OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }} >> .env
         echo TWITTER_USERNAME: ${{ secrets.TWITTER_USERNAME }} >> .env
+        echo TWITTER_PASSWORD: ${{ secrets.TWITTER_PASSWORD }} >> .env
         echo TWITTER_API_KEY: ${{ secrets.TWITTER_API_KEY }} >> .env
         echo TWITTER_API_KEY_SECRET: ${{ secrets.TWITTER_API_KEY_SECRET }} >> .env
         echo TWITTER_BEARER_TOKEN: ${{ secrets.TWITTER_BEARER_TOKEN }} >> .env
