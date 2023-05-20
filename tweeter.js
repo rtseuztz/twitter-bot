@@ -208,6 +208,7 @@ const tweet = async () => {
         const page = await browser.newPage();
         await page.goto(authorizeURL.href, { waitUntil: 'networkidle2' });
         //save a picture of this page
+        console.log(await page.content());
 
         await page.focus("input[id='username_or_email']");
         await page.keyboard.type(process.env.TWITTER_USERNAME);
