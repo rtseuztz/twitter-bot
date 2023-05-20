@@ -8,32 +8,6 @@ on:
   pull_request:
     branches: [ "master" ]
 jobs:
-#   build:
-#     environment: twitter
-#     runs-on: ubuntu-latest
-
-#     strategy:
-#       matrix:
-#         node-version: [14.x, 16.x, 18.x]
-#         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
-
-#     steps:
-#     - uses: actions/checkout@v3
-#     - name: Use Node.js ${{ matrix.node-version }}
-#       uses: actions/setup-node@v3
-#       with:
-#         node-version: ${{ matrix.node-version }}
-#         cache: 'npm'
-#     - name: Print name
-#       env: 
-#         TWITTER_USERNAME: ${{ secrets.TWITTER_USERNAME }}
-#       run: echo "username is $TWITTER_USERNAME" 
-#     - name: Set env
-#       run: echo "GITHUB_SHA_SHORT=$(echo $GITHUB_SHA | cut -c 1-6)" >> $GITHUB_ENV
-#     - name: Test
-#       run: echo $GITHUB_SHA_SHORT
-#     - run: npm ci
-#     - run: npm start
   run:
     environment: twitter
     name: Running the twitter bot...
@@ -50,15 +24,6 @@ jobs:
       with:
         node-version: ${{ matrix.node_version }}
     - name: create env file
-      env: 
-        OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
-        TWITTER_USERNAME: ${{ secrets.TWITTER_USERNAME }}
-        TWITTER_API_KEY: ${{ secrets.TWITTER_API_KEY }}
-        TWITTER_API_KEY_SECRET: ${{ secrets.TWITTER_API_KEY_SECRET }}
-        TWITTER_BEARER_TOKEN: ${{ secrets.TWITTER_BEARER_TOKEN }}
-        TWITTER_ACCESS_TOKEN: ${{ secrets.TWITTER_ACCESS_TOKEN }}
-        TWITTER_ACCESS_TOKEN_SECRET: ${{ secrets.TWITTER_ACCESS_TOKEN_SECRET }}
-        TEST: Mona
       run: |
         touch .env
         echo OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }} >> .env
@@ -69,15 +34,7 @@ jobs:
         echo TWITTER_ACCESS_TOKEN: ${{ secrets.TWITTER_ACCESS_TOKEN }} >> .env
         echo TWITTER_ACCESS_TOKEN_SECRET: ${{ secrets.TWITTER_ACCESS_TOKEN_SECRET }} >> .env
     - name: npm install, build and test
-      env: 
-        OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
-        TWITTER_USERNAME: ${{ secrets.TWITTER_USERNAME }}
-        TWITTER_API_KEY: ${{ secrets.TWITTER_API_KEY }}
-        TWITTER_API_KEY_SECRET: ${{ secrets.TWITTER_API_KEY_SECRET }}
-        TWITTER_BEARER_TOKEN: ${{ secrets.TWITTER_BEARER_TOKEN }}
-        TWITTER_ACCESS_TOKEN: ${{ secrets.TWITTER_ACCESS_TOKEN }}
-        TWITTER_ACCESS_TOKEN_SECRET: ${{ secrets.TWITTER_ACCESS_TOKEN_SECRET }}
       run: |
         npm install
-        npm run build --if-present
+        npm run github-build
         npm start
