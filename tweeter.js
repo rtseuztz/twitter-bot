@@ -217,8 +217,8 @@ const tweet = async () => {
         await page.keyboard.type(process.env.TWITTER_PASSWORD);
 
         await page.click("input[id='allow']");
-        await page.waitForNavigation({ waitUntil: 'networkidle2' });
 
+        await page.emulateIdleState(1000);
         console.log(await page.content());
         const element = await page.$("code");
         const value = await page.evaluate(el => el.textContent, element)
