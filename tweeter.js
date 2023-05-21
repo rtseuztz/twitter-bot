@@ -191,7 +191,15 @@ const tweet = async () => {
 
         //puppeteer, go to the link and click the button to get to the pin page
 
-        const browser = await puppeteer.launch({ headless: "new" });
+        const browser = await puppeteer.launch(
+            {
+                headless: "new",
+                args: ["--no-sandbox",
+                    "--disable-setuid-sandbox",
+                    '--user-agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/65.0.3312.0 Safari/537.36"',
+                ],
+            }
+        );
         const context = await browser.createIncognitoBrowserContext();
 
         const page = await context.newPage() // await browser.newPage();
@@ -203,13 +211,11 @@ const tweet = async () => {
 
         await page.focus("input[id='password']");
         await page.keyboard.type(process.env.TWITTER_PASSWORD);
-        console.log(await page.content());
 
         await page.click("input[id='allow']");
 
         //wait for a second with puppeteer
-        console.log(await page.content());
-        return;
+        const element = await page.$("code");
         const value = await page.evaluate(el => el.textContent, element)
         browser.disconnect();
 
