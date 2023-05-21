@@ -194,10 +194,6 @@ const tweet = async () => {
         const browser = await puppeteer.launch(
             {
                 headless: "new",
-                args: ["--no-sandbox",
-                    "--disable-setuid-sandbox",
-                    '--user-agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/65.0.3312.0 Safari/537.36"',
-                ],
             }
         );
         const context = await browser.createIncognitoBrowserContext();
@@ -211,8 +207,10 @@ const tweet = async () => {
 
         await page.focus("input[id='password']");
         await page.keyboard.type(process.env.TWITTER_PASSWORD);
+        await page.screenshot({ path: 'example1.png' });
 
         await page.click("input[id='allow']");
+        await page.screenshot({ path: 'example2.png' });
 
         //wait for a second with puppeteer
         const element = await page.$("code");
