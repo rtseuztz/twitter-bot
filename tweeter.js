@@ -207,12 +207,13 @@ const tweet = async () => {
 
         await page.focus("input[id='password']");
         await page.keyboard.type(process.env.TWITTER_PASSWORD);
-        await page.screenshot({ path: 'example1.png' });
+        // await page.screenshot({ path: 'example1.png' });
 
         await page.click("input[id='allow']");
-        await page.screenshot({ path: 'example2.png' });
+        // await page.screenshot({ path: 'example2.png' });
 
         //wait for a second with puppeteer
+        await page.reload({ waitUntil: ["networkidle0", "domcontentloaded"] });
         const element = await page.$("code");
         const value = await page.evaluate(el => el.textContent, element)
         browser.disconnect();
