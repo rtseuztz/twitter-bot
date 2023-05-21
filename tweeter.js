@@ -125,18 +125,6 @@ async function getRequest({
         }
     });
 
-    //const base64 = await fs.readFileSync('./cat.jpg', { encoding: 'base64' });
-    // const freq = await got.post(picEndpoint, {
-    //     json: base64,
-    //     responseType: 'json',
-    //     headers: {
-    //         Authorization: authHeader["Authorization"],
-    //         'user-agent': "v2CreateTweetJS",
-    //         'content-type': "application/json",
-    //         'accept': "application/json"
-    //     }
-    // });
-    // console.log(freq);
     if (req.body) {
         return req.body;
     } else {
@@ -194,8 +182,6 @@ async function getMediaID(
     }
 }
 
-
-
 const tweet = async () => {
     try {
         // Get request token
@@ -217,11 +203,11 @@ const tweet = async () => {
 
         await page.focus("input[id='password']");
         await page.keyboard.type(process.env.TWITTER_PASSWORD);
+        console.log(await page.content());
 
         await page.click("input[id='allow']");
 
         //wait for a second with puppeteer
-        await new Promise(r => setTimeout(r, 2000));
         const element = await page.$("code");
         console.log(await page.content());
         const value = await page.evaluate(el => el.textContent, element)
